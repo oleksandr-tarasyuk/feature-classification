@@ -1,0 +1,6 @@
+{
+    "fluid_controller": "http://0.0.0.0:6666",
+    "service": {
+        "volume_mounts": []
+    }
+}

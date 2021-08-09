@@ -1,0 +1,22 @@
+{
+  "fluid_controller": "https://ces-dev.goldenspear.com",
+  "service": {
+    "service_name": "ce-template",
+    "service_version": "latest",
+    "docker_image": "docker-reg.goldenspear.com/goldenspear_ai/ce-template:tag",
+    "needs_gpu": false,
+    "environment_vars": {
+      "FLUID_HTTP_HOST": "0.0.0.0",
+      "FLUID_HTTP_PORT": "8989",
+      "PYTHONUNBUFFERED": "1",
+      "VERBOSE_TRACEBACK": "true",
+      "LOG_LEVEL": "INFO"
+    },
+    "extra_hosts": {},
+    "volume_mounts": [],
+    "command": "",
+    "exposed_port": "8989",
+    "ports": {},
+    "git_repo": "https://github.com/GoldenspearLLC/ce-template"
+  }
+}
