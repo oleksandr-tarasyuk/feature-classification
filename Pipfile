@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+url = "http://209.133.199.50:8090"
+verify_ssl = false
+name = "pypi-gs"
+
+[packages]
+aiohttp = "~=3.6.2"
+docker = "~=4.2.0"
+fluid = "==0.9.2"
+
+[dev-packages]
+pytest = "*"
+twine = "*"
+toml = "*"
+
+[requires]
+python_version = "3.7"
