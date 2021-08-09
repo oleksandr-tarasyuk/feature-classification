@@ -70,10 +70,10 @@ def plot_bar(feat_plot, i):
     plt.savefig(f'resources/images_{str(i)}/0barplot.png')
 
 
-def main():
+def main():  # noqa: C901
     for total_counter in range(2, 4):
         products = []
-        counter = total_counter+1
+        counter = total_counter + 1
         total_counter *= 4
 
         for i in range(total_counter, total_counter + 4):
@@ -104,7 +104,7 @@ def main():
                         feature_count[str(feature_product['featId'])]["count"] += 1
                     except KeyError as e:
                         pass
-                        # print(f"key {e} not found")
+                        print(f"key {e} not found")
             except KeyError as e:
                 print(f"key {e} not found")
                 pass
