@@ -44,7 +44,7 @@ if __name__ == '__main__':
         feature_md = ''
 
         for feature in features:
-            if db_selector.feat_name_from_id(feature['featId']):
+            if db_selector.feat_name_from_id(feature['featId']) not in ('NONE', 'UNKNOWN'):
                 feature_md += '<div>' + db_selector.feat_name_from_id(feature['featId']) + '</div>'
 
         col1, col2 = st.beta_columns((1, 1))
