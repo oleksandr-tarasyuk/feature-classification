@@ -49,10 +49,12 @@ if __name__ == '__main__':
 
         col1, col2 = st.beta_columns((1, 1))
 
+        image = base64.b64encode(open('/fileserver1/webdata' + img_url, 'rb').read()).decode()
+
         col1.markdown(
             f"""
                     <div class="container">
-                        {f"<img class='logo-img' src='data:image/png;base64,{base64.b64encode(open(path, 'rb').read()).decode()}"}
+                        {f"<img class='logo-img' src='data:image/png;base64,{image}"}
                         <p class="text-features">
                             '<strong>Features</strong>:' """ + feature_md + """</p>
                     </div>
