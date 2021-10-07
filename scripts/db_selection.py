@@ -291,4 +291,4 @@ if __name__ == "__main__":
     retriever = db_selector.product_retriever()
     while(True):
         retrieved_product = next(retriever)
-        print(product)
+        print(retrieved_product)
