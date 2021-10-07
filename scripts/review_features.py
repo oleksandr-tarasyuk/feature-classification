@@ -50,25 +50,13 @@ if __name__ == '__main__':
 
         feature_md = ''
 
-        for feature in features:
-            if db_selector.feat_name_from_id(feature['featId']) not in ('NONE', 'UNKNOWN'):
-                feature_md += '<div>' + db_selector.feat_name_from_id(feature['featId']) + '</div>'
-
         col1, col2 = st.beta_columns((1, 1))
 
         col1.image('/fileserver1/webdata' + img_url)
 
-        image = base64.b64encode(open('/fileserver1/webdata' + img_url, 'rb').read()).decode()
-
-        col2.markdown(
-            f"""
-                    <div class="container">
-                        <p class="text-features">
-                            '<strong>Features</strong>:' """ + feature_md + """</p>
-                    </div>
-                    """,
-            unsafe_allow_html=True
-        )
+        for feature in features:
+            if db_selector.feat_name_from_id(feature['featId']) not in ('NONE', 'UNKNOWN'):
+                col2.write(db_selector.feat_name_from_id(feature['featId']))
 
         accept = col2.button('Accept')
         discard = col2.button('Discard')
