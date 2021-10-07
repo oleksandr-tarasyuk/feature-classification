@@ -81,7 +81,7 @@ if __name__ == "__main__":
     feat_dict = {}
     for feat in feature_collection.find({}, {"_id": 1, "name": 1}):
         feat_dict[feat['_id']] = feat['name']
-    feathand = FeatDictHandler(featdict)
+    feathand = FeatDictHandler(feat_dict)
 
     groups_yes = []
     groups_no = []
