@@ -52,7 +52,7 @@ if __name__ == '__main__':
         col1.markdown(
             f"""
                     <div class="container">
-                        {f"<img class='logo-img' src='/fileserver1/webdata{img_url}'"}
+                        {f"<img class='logo-img' src='data:image/png;base64,{base64.b64encode(open(path, 'rb').read()).decode()}"}
                         <p class="text-features">
                             '<strong>Features</strong>:' """ + feature_md + """</p>
                     </div>
