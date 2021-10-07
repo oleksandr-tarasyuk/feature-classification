@@ -18,7 +18,16 @@ class FeatDictHandler:
         return self.feat_dict[id]
 
 
-def plot_prod_info(product_origins_from_fgroup_unique, origin, feat_handler, init=0):
+def plot_prod_info(collection, origin, feat_handler, init=0):
+    """
+    For a given origin, this generator iterates all its products by showing the info (origin and features
+
+    :param collection: (pymongo.collection.Collection) products full collection to query
+    :param origin: (str) origin name to iterate
+    :param feat_handler: (FeatDictHandler) object, used to get feature names from id
+    :param init: (int) position in which to start, used to skip the desired positions
+    :return:
+    """
     needed_projection = {'contents.url': 1,
                          "productDescription.features.featId": 1,
                          "productDescription.features.partId": 1}
@@ -35,6 +44,12 @@ def plot_prod_info(product_origins_from_fgroup_unique, origin, feat_handler, ini
 
 
 if __name__ == "__main__":
+    """
+    This script is used to review the origins for the products in e-Commerce db and select the wanted origins. At the 
+    end they are printed, so they can be added to interests.py as origins_yes. Requires to have in interests.py the 
+    variables feature_groups_of_interest (list of strings of the ids of the desired feature groups) and pc_of_interest 
+    (list of strings of the desired pcs)  
+    """
     db_connection = pymongo.MongoClient(mongo_url)
     db = db_connection['goldenspear']
 
@@ -75,7 +90,7 @@ if __name__ == "__main__":
         origin = input()
         if origin == 'Q':
             break
-        plot_gen = plot_prod_info(product_origins_from_fgroup_unique, origin, feathand, 0)
+        plot_gen = plot_prod_info(collection, origin, feathand, 0)
         while True:
             try:
                 next(plot_gen)

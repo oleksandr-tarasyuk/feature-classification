@@ -17,10 +17,17 @@ DISCARD_FILE = '/home/imas/'
 PKL_PATH = '/home/imas/products.pkl'
 
 def rerun():
+    """
+    Necessary to run streamlit tool
+    """
     raise st.script_runner.RerunException(st.script_request_queue.RerunData(None))
 
 @st.cache(allow_output_mutation=True)
 def get_db_selector():
+    """
+    Loads DB selector object
+    :return: (DBSelector) object to retrieve and handle products from
+    """
     return DBSelector(ACCEPT_FILE, DISCARD_FILE, save_products=True, pkl_path=PKL_PATH)
 
 if __name__ == '__main__':
