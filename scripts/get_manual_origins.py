@@ -1,11 +1,9 @@
-import os
-import random
 import pymongo
 import matplotlib.pyplot as plt
 from PIL import Image
 from bson.objectid import ObjectId
 
-from interest import feature_groups_of_interest, pc_of_interest
+from interest import feature_groups_of_interest
 from config import mongo_url
 
 
@@ -43,16 +41,53 @@ def plot_prod_info(collection, origin, feat_handler, init=0):
         yield ''
 
 
+def interactive_origin_selection(collection, feathand):
+    """
+    Displays each origins products and asks the user if keep it or not
+
+    :param collection: (pymongo.collection.Collection) of products
+    :param feathand: (FeatDictHandler) initialized
+    :return:
+    """
+
+    groups_yes = []
+    groups_no = []
+    while True:
+        print('Write origin to view: (Q to Quit)')
+        origin = input()
+        if origin == 'Q':
+            break
+        plot_gen = plot_prod_info(collection, origin, feathand, 0)
+        while True:
+            try:
+                next(plot_gen)
+                print('Write "N" to next, other to another origin:')
+                option = input()
+                if option != 'N':
+                    print('Save origin? (Y/N)')
+                    save = input()
+                    if save == 'Y':
+                        groups_yes.append(origin)
+                    elif save == 'N':
+                        groups_no.append(origin)
+                    break
+            except Exception as e:
+                print(e)
+                break
+
+    print(groups_yes)
+    return groups_yes
+
+
 if __name__ == "__main__":
     """
-    This script is used to review the origins for the products in e-Commerce db and select the wanted origins. At the 
-    end they are printed, so they can be added to interests.py as origins_yes. Requires to have in interests.py the 
-    variables feature_groups_of_interest (list of strings of the ids of the desired feature groups) and pc_of_interest 
-    (list of strings of the desired pcs)  
+    This script is used to review the origins for the products in e-Commerce db and select the wanted origins. At the
+    end they are printed, so they can be added to interests.py as origins_yes. Requires to have in interests.py the
+    variables feature_groups_of_interest (list of strings of the ids of the desired feature groups) and pc_of_interest
+    (list of strings of the desired pcs)
     """
     db_connection = pymongo.MongoClient(mongo_url)
     db = db_connection['goldenspear']
-
 
     collection = db['product']
     feature_collection = db['feature']
@@ -81,34 +116,8 @@ if __name__ == "__main__":
     feat_dict = {}
     for feat in feature_collection.find({}, {"_id": 1, "name": 1}):
         feat_dict[feat['_id']] = feat['name']
-    feathand = FeatDictHandler(feat_dict)
 
-    groups_yes = []
-    groups_no = []
-    while True:
-        print('Write origin to view: (Q to Quit)')
-        origin = input()
-        if origin == 'Q':
-            break
-        plot_gen = plot_prod_info(collection, origin, feathand, 0)
-        while True:
-            try:
-                next(plot_gen)
-                print('Write "N" to next, other to another origin:')
-                option = input()
-                if option != 'N':
-                    print('Save origin? (Y/N)')
-                    save = input()
-                    if save == 'Y':
-                        groups_yes.append(origin)
-                    elif save == 'N':
-                        groups_no.append(origin)
-                    break
-            except Exception as e:
-                print(e)
-                break
-
-    print(groups_yes)
+    groups_yes = interactive_origin_selection(collection, FeatDictHandler(feat_dict))
 
     products_from_good_origins = collection.find({"config.origin": {'$in': groups_yes}}, {})
     num_products = products_from_good_origins.count()

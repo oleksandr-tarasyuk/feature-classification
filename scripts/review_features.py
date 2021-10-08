@@ -1,26 +1,19 @@
-import pymongo
-import mltool_backend.datasets.dataset_manager as d_manager
 import streamlit as st
-import pandas as pd
-import tqdm
-import mltool_backend.models.model_manager as mm
-from copy import deepcopy
-import base64
-import numpy as np
-import os
-import json
 
 from db_selection import DBSelector
+
 
 ACCEPT_FILE = '/home/imas/'
 DISCARD_FILE = '/home/imas/'
 PKL_PATH = '/home/imas/products.pkl'
+
 
 def rerun():
     """
     Necessary to run streamlit tool
     """
     raise st.script_runner.RerunException(st.script_request_queue.RerunData(None))
+
 
 @st.cache(allow_output_mutation=True)
 def get_db_selector():
@@ -29,6 +22,7 @@ def get_db_selector():
     :return: (DBSelector) object to retrieve and handle products from
     """
     return DBSelector(ACCEPT_FILE, DISCARD_FILE, save_products=True, pkl_path=PKL_PATH)
+
 
 if __name__ == '__main__':
 
