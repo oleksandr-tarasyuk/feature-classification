@@ -10,3 +10,9 @@
 ```bash
 streamlit run scripts/db_selection.py
 ```
+
+### TO DO
+
+- More efficient loops when processing the order:
+  - [Aggregation on pipeline](https://github.com/GoldenspearLLC/feature-classification/pull/1#discussion_r727795895)
+  - [Join different loops](https://github.com/GoldenspearLLC/feature-classification/pull/1#discussion_r724755395)
