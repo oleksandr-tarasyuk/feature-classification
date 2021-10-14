@@ -6,18 +6,24 @@ import pymongo
 from bson import json_util
 from bson.objectid import ObjectId
 
-from interest import feature_groups_of_interest, pc_of_interest, origins_yes
 from config import mongo_url
 
 MIN_FOR_PC = 200
 MIN_FOR_FEAT = 40
+
+with open('scripts/interest.json', 'r') as f:
+    interest = json.load(f)
+
+feature_groups_of_interest = interest['feature_groups_of_interest']
+pc_of_interest = interest['pc_of_interest']
+origins_yes = interest['origins_yes']
 
 
 class DBSelector:
     """
     Class that allows to retrieve products from db in a processed order and also store the accepted ones.
 
-    It requires to have in interest.py the variables:
+    It requires to have in interest.json the variables:
 
         - feature_groups_of_interest: (list of str) being the ids of the desired feature groups
         - pc_of_interest: (list of str) being the ids of the desired pcs

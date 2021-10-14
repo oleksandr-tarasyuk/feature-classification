@@ -1,10 +1,15 @@
 import pymongo
 import matplotlib.pyplot as plt
+import json
 from PIL import Image
 from bson.objectid import ObjectId
 
-from interest import feature_groups_of_interest
 from config import mongo_url
+
+with open('scripts/interest.json', 'r') as f:
+    interest = json.load(f)
+
+feature_groups_of_interest = interest['feature_groups_of_interest']
 
 
 class FeatDictHandler:
@@ -127,4 +132,4 @@ if __name__ == "__main__":
     print('DISCARDED: ')
     print(groups_yes)
 
-    print('Write these origins to interest.py "origins_yes" before running order_products method of db_selection.py')
+    print('Write these origins to interest.json "origins_yes" before running order_products method of db_selection.py')
