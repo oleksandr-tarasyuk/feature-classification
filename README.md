@@ -1,4 +1,4 @@
-# CE Repository Template Test
+# CE Repository Template Test2
 
 Template with our basic structure
 
